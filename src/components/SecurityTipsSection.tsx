@@ -1,43 +1,50 @@
 import { motion } from 'framer-motion';
-import { Shield, Lock, Eye, Globe, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import { Shield, RefreshCw, Lock, Eye, AlertTriangle, CheckCircle2, Sparkles } from 'lucide-react';
 
 const tips = [
   {
     icon: Shield,
     title: 'Keep Software Updated',
-    description:
-      'Regularly update your operating system and applications. Updates often include critical security patches.',
+    description: 'Regularly update your operating system and applications. Updates often include critical security patches.',
+    gradient: 'from-primary/20 to-transparent',
   },
   {
     icon: Lock,
     title: 'Use Strong Passwords',
-    description:
-      'Create unique, complex passwords for each account. Consider using a password manager.',
+    description: 'Create unique, complex passwords for each account. Consider using a password manager.',
+    gradient: 'from-secondary/20 to-transparent',
   },
   {
     icon: Eye,
     title: 'Be Wary of Phishing',
-    description:
-      "Don't click suspicious links or download attachments from unknown senders. Verify before you trust.",
+    description: "Don't click suspicious links or download attachments from unknown senders. Verify before you trust.",
+    gradient: 'from-accent/20 to-transparent',
   },
   {
-    icon: Globe,
-    title: 'Secure Your Network',
-    description:
-      'Use encrypted Wi-Fi, avoid public networks for sensitive tasks, and consider using a VPN.',
+    icon: RefreshCw,
+    title: 'Backup Regularly',
+    description: 'Maintain regular backups of important data. This is your best defense against ransomware.',
+    gradient: 'from-warning/20 to-transparent',
   },
   {
     icon: AlertTriangle,
-    title: 'Backup Regularly',
-    description:
-      'Maintain regular backups of important data. This is your best defense against ransomware.',
+    title: 'Avoid Suspicious Websites',
+    description: 'Only visit trusted websites. Look for HTTPS and avoid clicking on suspicious ads or popups.',
+    gradient: 'from-destructive/20 to-transparent',
   },
   {
     icon: CheckCircle2,
-    title: 'Verify Downloads',
-    description:
-      'Only download software from official sources. Scan files before opening them.',
+    title: 'Use Antivirus Tools',
+    description: 'Install reputable antivirus software and keep it updated for real-time protection.',
+    gradient: 'from-success/20 to-transparent',
   },
+];
+
+const limitations = [
+  'Static analysis may miss hidden or encrypted malware',
+  'New malware (zero-day) requires updated signatures',
+  'User data must be securely stored and protected',
+  'Results are advisory, not absolute guarantees',
 ];
 
 const SecurityTipsSection = () => {
@@ -58,11 +65,11 @@ const SecurityTipsSection = () => {
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-secondary mb-4">
-            <Shield className="w-4 h-4" />
+            <Sparkles className="w-4 h-4" />
             Stay Protected
           </div>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
-            Security <span className="text-gradient">Best Practices</span>
+            🔐 Cybersecurity <span className="text-gradient">Tips</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Follow these essential tips to keep yourself and your data safe 
@@ -70,58 +77,108 @@ const SecurityTipsSection = () => {
           </p>
         </motion.div>
 
-        {/* Tips grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Tips grid with animated cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
           {tips.map((tip, index) => (
             <motion.div
               key={tip.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 30, rotateX: 15 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group"
+              transition={{ delay: index * 0.1, type: 'spring' }}
+              whileHover={{ y: -10, transition: { duration: 0.3 } }}
+              className="group perspective-1000"
             >
-              <div className="h-full p-6 rounded-xl glass border border-border/50 card-cyber">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                    <tip.icon className="w-6 h-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-foreground mb-2">
-                      {tip.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {tip.description}
-                    </p>
-                  </div>
+              <div className={`h-full p-6 rounded-xl glass border border-border/50 relative overflow-hidden`}>
+                {/* Animated gradient background */}
+                <motion.div
+                  className={`absolute inset-0 bg-gradient-to-br ${tip.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                />
+                
+                <div className="relative z-10">
+                  <motion.div 
+                    className="flex items-start gap-4"
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <motion.div 
+                      className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0"
+                      animate={{ rotate: [0, 5, -5, 0] }}
+                      transition={{ duration: 4, repeat: Infinity, delay: index * 0.5 }}
+                    >
+                      <tip.icon className="w-6 h-6 text-primary" />
+                    </motion.div>
+                    <div>
+                      <h3 className="font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                        {tip.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        {tip.description}
+                      </p>
+                    </div>
+                  </motion.div>
                 </div>
+
+                {/* Shimmer effect on hover */}
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/5 to-transparent" />
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Limitations notice */}
+        {/* Ethical Considerations & Limitations */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-16 max-w-3xl mx-auto"
+          className="max-w-3xl mx-auto"
         >
-          <div className="p-6 rounded-xl glass border border-warning/30 bg-warning/5">
-            <div className="flex items-start gap-4">
-              <AlertTriangle className="w-6 h-6 text-warning flex-shrink-0" />
-              <div>
-                <h3 className="font-semibold text-foreground mb-2">
-                  Important Limitations
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  While our malware detection system is highly effective, no security 
-                  solution is 100% foolproof. New threats emerge daily, and some sophisticated 
-                  malware may evade detection. Always practice safe browsing habits and maintain 
-                  multiple layers of security. This tool should complement, not replace, your 
-                  existing security measures.
-                </p>
+          <div className="p-8 rounded-2xl glass border border-warning/30 bg-warning/5 relative overflow-hidden">
+            {/* Animated border */}
+            <motion.div
+              className="absolute inset-0 rounded-2xl"
+              style={{
+                background: 'linear-gradient(90deg, transparent, hsl(var(--warning) / 0.3), transparent)',
+                backgroundSize: '200% 100%',
+              }}
+              animate={{
+                backgroundPosition: ['100% 0', '-100% 0'],
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
+            />
+            
+            <div className="relative z-10">
+              <div className="flex items-start gap-4 mb-6">
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <AlertTriangle className="w-8 h-8 text-warning flex-shrink-0" />
+                </motion.div>
+                <div>
+                  <h3 className="text-xl font-bold text-foreground mb-2">
+                    ⚖️ Ethical Considerations & Limitations
+                  </h3>
+                  <p className="text-muted-foreground">
+                    While our malware detection system is highly effective, it's important to understand its limitations.
+                  </p>
+                </div>
               </div>
+              
+              <ul className="space-y-3">
+                {limitations.map((limitation, index) => (
+                  <motion.li
+                    key={index}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-center gap-3"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-warning flex-shrink-0" />
+                    <span className="text-muted-foreground">{limitation}</span>
+                  </motion.li>
+                ))}
+              </ul>
             </div>
           </div>
         </motion.div>

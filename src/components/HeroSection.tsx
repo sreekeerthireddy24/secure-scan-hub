@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Shield, Scan, ArrowDown } from 'lucide-react';
+import { Shield, Scan, ArrowDown, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import AnimatedShield from './AnimatedShield';
 
@@ -8,6 +8,13 @@ interface HeroSectionProps {
 }
 
 const HeroSection = ({ onStartScan }: HeroSectionProps) => {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center py-20 overflow-hidden">
       {/* Background elements */}
@@ -41,7 +48,7 @@ const HeroSection = ({ onStartScan }: HeroSectionProps) => {
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary mb-6"
             >
               <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-              Advanced Threat Detection Active
+              🛡️ Advanced Threat Detection Active
             </motion.div>
 
             <motion.h1
@@ -50,9 +57,9 @@ const HeroSection = ({ onStartScan }: HeroSectionProps) => {
               transition={{ delay: 0.3 }}
               className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
             >
-              Protect Your
+              Malware
               <br />
-              <span className="text-gradient text-neon">Digital World</span>
+              <span className="text-gradient text-neon">Detection System</span>
             </motion.h1>
 
             <motion.p
@@ -85,9 +92,11 @@ const HeroSection = ({ onStartScan }: HeroSectionProps) => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-primary/50 hover:bg-primary/10 h-14 text-lg px-8"
+                  onClick={() => scrollToSection('overview')}
+                  className="border-primary/50 hover:bg-primary/10 h-14 text-lg px-8 group"
                 >
                   Learn More
+                  <ChevronRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </motion.div>
             </motion.div>
@@ -135,7 +144,8 @@ const HeroSection = ({ onStartScan }: HeroSectionProps) => {
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="flex flex-col items-center gap-2 text-muted-foreground"
+            className="flex flex-col items-center gap-2 text-muted-foreground cursor-pointer"
+            onClick={() => scrollToSection('overview')}
           >
             <span className="text-xs">Scroll to explore</span>
             <ArrowDown className="w-4 h-4" />

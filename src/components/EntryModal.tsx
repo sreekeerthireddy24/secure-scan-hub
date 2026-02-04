@@ -99,10 +99,10 @@ const EntryModal = ({ onComplete }: EntryModalProps) => {
                 <Shield className="w-10 h-10 text-primary shield-glow" />
               </motion.div>
               <h2 className="text-2xl font-bold text-foreground mb-2">
-                Welcome to <span className="text-gradient">CyberGuard</span>
+                🔐 <span className="text-gradient">Secure Access Required</span>
               </h2>
               <p className="text-muted-foreground text-sm">
-                Enter your details to begin your security journey
+                Enter your details to continue and protect your system from malware threats.
               </p>
             </motion.div>
 
@@ -198,7 +198,7 @@ const EntryModal = ({ onComplete }: EntryModalProps) => {
                     </motion.div>
                   ) : (
                     <>
-                      <span>Begin Protection</span>
+                      <span>Start Secure Scan</span>
                       <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                     </>
                   )}
