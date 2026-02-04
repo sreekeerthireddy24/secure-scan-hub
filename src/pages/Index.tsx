@@ -3,13 +3,15 @@ import Navbar from '@/components/Navbar';
 import MatrixRain from '@/components/MatrixRain';
 import EntryModal from '@/components/EntryModal';
 import HeroSection from '@/components/HeroSection';
+import ProjectOverviewSection from '@/components/ProjectOverviewSection';
 import MalwareTypesSection from '@/components/MalwareTypesSection';
+import WhyDetectionSection from '@/components/WhyDetectionSection';
 import ScanSection from '@/components/ScanSection';
 import ScanningOverlay from '@/components/ScanningOverlay';
 import ScanResults from '@/components/ScanResults';
 import SecurityTipsSection from '@/components/SecurityTipsSection';
-import TechnologySection from '@/components/TechnologySection';
 import Footer from '@/components/Footer';
+import HelpBox from '@/components/HelpBox';
 
 interface UserData {
   name: string;
@@ -18,7 +20,8 @@ interface UserData {
 }
 
 const Index = () => {
-  const [showEntryModal, setShowEntryModal] = useState(true);
+  const [showEntryModal, setShowEntryModal] = useState(false);
+  const [hasSeenModal, setHasSeenModal] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [scanProgress, setScanProgress] = useState(0);
@@ -26,6 +29,18 @@ const Index = () => {
   const [scanTarget, setScanTarget] = useState('');
   const [showResults, setShowResults] = useState(false);
   const [scanResult, setScanResult] = useState<'safe' | 'threat' | null>(null);
+
+  // Show entry modal after 15 seconds
+  useEffect(() => {
+    if (hasSeenModal) return;
+
+    const timer = setTimeout(() => {
+      setShowEntryModal(true);
+      setHasSeenModal(true);
+    }, 15000); // 15 seconds
+
+    return () => clearTimeout(timer);
+  }, [hasSeenModal]);
 
   const handleEntryComplete = (data: UserData) => {
     setUserData(data);
@@ -75,7 +90,7 @@ const Index = () => {
       {/* Matrix rain background */}
       <MatrixRain />
 
-      {/* Entry modal */}
+      {/* Entry modal - shows after 15 seconds */}
       {showEntryModal && <EntryModal onComplete={handleEntryComplete} />}
 
       {/* Navbar */}
@@ -86,21 +101,27 @@ const Index = () => {
         {/* Hero Section */}
         <HeroSection onStartScan={scrollToScan} />
 
+        {/* Project Overview Section */}
+        <ProjectOverviewSection />
+
         {/* Malware Types Section */}
         <MalwareTypesSection />
+
+        {/* Why Detection is Important Section */}
+        <WhyDetectionSection />
 
         {/* Scan Section */}
         <ScanSection onScanStart={handleStartScan} isScanning={isScanning} />
 
         {/* Security Tips Section */}
         <SecurityTipsSection />
-
-        {/* Technology Section */}
-        <TechnologySection />
       </main>
 
       {/* Footer */}
       <Footer />
+
+      {/* Help Box - Floating button with expandable content */}
+      <HelpBox />
 
       {/* Scanning Overlay */}
       <ScanningOverlay

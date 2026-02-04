@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, ShieldX, AlertTriangle, CheckCircle2, XCircle, PartyPopper } from 'lucide-react';
+import { ShieldCheck, ShieldX, AlertTriangle, CheckCircle2, XCircle, PartyPopper, Trash2, Link2Off, Scan } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import confetti from 'canvas-confetti';
 
@@ -16,6 +16,12 @@ interface ScanResultsProps {
     description: string;
   };
 }
+
+const suggestedActions = [
+  { icon: Trash2, text: 'Delete the file immediately' },
+  { icon: Link2Off, text: 'Avoid opening suspicious links' },
+  { icon: Scan, text: 'Run a full system scan' },
+];
 
 const ScanResults = ({
   isVisible,
@@ -73,12 +79,42 @@ const ScanResults = ({
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm"
         >
+          {/* Danger Alert Animation for Threat */}
+          {!isSafe && (
+            <>
+              {/* Pulsing red overlay */}
+              <motion.div
+                className="absolute inset-0 bg-destructive/10"
+                animate={{ opacity: [0.1, 0.2, 0.1] }}
+                transition={{ duration: 1, repeat: Infinity }}
+              />
+              {/* Red border flash */}
+              <motion.div
+                className="absolute inset-4 border-4 border-destructive/50 rounded-3xl"
+                animate={{ opacity: [0.3, 0.8, 0.3], scale: [0.98, 1, 0.98] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              />
+            </>
+          )}
+
+          {/* Success glow for safe */}
+          {isSafe && (
+            <motion.div
+              className="absolute inset-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              style={{
+                background: 'radial-gradient(circle at center, hsl(var(--success) / 0.1) 0%, transparent 70%)',
+              }}
+            />
+          )}
+
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: 'spring', duration: 0.5 }}
-            className={`relative w-full max-w-md mx-4 p-8 rounded-2xl glass border-2 ${
+            className={`relative w-full max-w-lg mx-4 p-8 rounded-2xl glass border-2 ${
               isSafe ? 'border-success/50' : 'border-destructive/50'
             }`}
           >
@@ -90,19 +126,29 @@ const ScanResults = ({
             />
 
             <div className="relative z-10 text-center">
-              {/* Icon */}
+              {/* Icon with animation */}
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', delay: 0.2 }}
-                className={`w-24 h-24 mx-auto mb-6 rounded-full flex items-center justify-center ${
+                className={`w-28 h-28 mx-auto mb-6 rounded-full flex items-center justify-center ${
                   isSafe ? 'bg-success/20' : 'bg-destructive/20'
                 } ${isSafe ? 'success-glow' : 'danger-pulse'}`}
               >
                 {isSafe ? (
-                  <ShieldCheck className="w-12 h-12 text-success" />
+                  <motion.div
+                    animate={{ rotate: [0, 10, -10, 0] }}
+                    transition={{ duration: 0.5, delay: 0.5 }}
+                  >
+                    <ShieldCheck className="w-14 h-14 text-success" />
+                  </motion.div>
                 ) : (
-                  <ShieldX className="w-12 h-12 text-destructive" />
+                  <motion.div
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 0.5, repeat: Infinity }}
+                  >
+                    <ShieldX className="w-14 h-14 text-destructive" />
+                  </motion.div>
                 )}
               </motion.div>
 
@@ -111,11 +157,11 @@ const ScanResults = ({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className={`text-3xl font-bold mb-2 ${
+                className={`text-3xl md:text-4xl font-bold mb-3 ${
                   isSafe ? 'text-success text-neon-green' : 'text-destructive'
                 }`}
               >
-                {isSafe ? 'Hurray! All Clear!' : 'Threat Detected!'}
+                {isSafe ? '✅ Hurray! Your System is Safe!' : '⚠️ Warning! Threat Detected!'}
               </motion.h2>
 
               {/* Subtitle */}
@@ -123,11 +169,11 @@ const ScanResults = ({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="text-muted-foreground mb-6"
+                className="text-muted-foreground mb-6 text-lg"
               >
                 {isSafe
-                  ? 'Your system is safe. No malware or threats were found.'
-                  : 'Your file or system may be at risk. Immediate action required.'}
+                  ? 'No malware or security threats were found. You can continue safely.'
+                  : 'The scanned file or system is potentially malicious. Immediate action required!'}
               </motion.p>
 
               {/* Target info */}
@@ -135,7 +181,7 @@ const ScanResults = ({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="p-4 rounded-lg bg-muted/30 mb-6"
+                className={`p-4 rounded-lg mb-6 ${isSafe ? 'bg-success/10 border border-success/30' : 'bg-destructive/10 border border-destructive/30'}`}
               >
                 <p className="text-sm text-muted-foreground mb-1">
                   Scanned {scanType === 'file' ? 'File' : 'URL'}:
@@ -154,18 +200,49 @@ const ScanResults = ({
                   className="p-4 rounded-lg bg-destructive/10 border border-destructive/30 mb-6 text-left"
                 >
                   <div className="flex items-start gap-3">
-                    <AlertTriangle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
+                    <motion.div
+                      animate={{ rotate: [0, 10, -10, 0] }}
+                      transition={{ duration: 0.5, repeat: Infinity }}
+                    >
+                      <AlertTriangle className="w-6 h-6 text-destructive flex-shrink-0" />
+                    </motion.div>
                     <div>
-                      <p className="font-semibold text-destructive mb-1">
+                      <p className="font-bold text-destructive text-lg mb-1">
                         {threatDetails.type}
                       </p>
                       <p className="text-sm text-muted-foreground">
-                        Severity: <span className="text-destructive font-semibold">{threatDetails.severity}</span>
+                        Severity: <span className="text-destructive font-bold">{threatDetails.severity}</span>
                       </p>
                       <p className="text-sm text-muted-foreground mt-2">
                         {threatDetails.description}
                       </p>
                     </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Suggested Actions for Threat */}
+              {!isSafe && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.7 }}
+                  className="mb-6"
+                >
+                  <h3 className="text-sm font-semibold text-foreground mb-3">Suggested Actions:</h3>
+                  <div className="space-y-2">
+                    {suggestedActions.map((action, i) => (
+                      <motion.div
+                        key={action.text}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.8 + i * 0.1 }}
+                        className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 text-left"
+                      >
+                        <action.icon className="w-5 h-5 text-warning flex-shrink-0" />
+                        <span className="text-sm text-muted-foreground">{action.text}</span>
+                      </motion.div>
+                    ))}
                   </div>
                 </motion.div>
               )}
@@ -185,7 +262,7 @@ const ScanResults = ({
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.7 + i * 0.1 }}
-                        className="flex items-center gap-2 text-sm text-muted-foreground"
+                        className="flex items-center gap-2 text-sm text-muted-foreground p-2 rounded-lg bg-success/10"
                       >
                         <CheckCircle2 className="w-4 h-4 text-success" />
                         {item}
@@ -199,7 +276,7 @@ const ScanResults = ({
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 }}
+                transition={{ delay: 0.9 }}
                 className="flex flex-col gap-3"
               >
                 {!isSafe && (
