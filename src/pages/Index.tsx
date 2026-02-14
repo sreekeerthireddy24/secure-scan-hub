@@ -21,7 +21,7 @@ interface UserData {
 
 const Index = () => {
   const [showEntryModal, setShowEntryModal] = useState(false);
-  const [hasSeenModal, setHasSeenModal] = useState(false);
+  const [hasSeenModal, setHasSeenModal] = useState(() => localStorage.getItem('hasCompletedEntry') === 'true');
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isScanning, setIsScanning] = useState(false);
   const [scanProgress, setScanProgress] = useState(0);
@@ -45,6 +45,7 @@ const Index = () => {
   const handleEntryComplete = (data: UserData) => {
     setUserData(data);
     setShowEntryModal(false);
+    localStorage.setItem('hasCompletedEntry', 'true');
   };
 
   const handleStartScan = useCallback((type: 'file' | 'url', data: File | string) => {
