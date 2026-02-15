@@ -1,42 +1,36 @@
 import { motion } from 'framer-motion';
-import { Code2, Server, Database, Layers, Cpu, Globe } from 'lucide-react';
+import { Code2, Server, Database, Layers, Globe } from 'lucide-react';
 
 const technologies = [
   {
     icon: Code2,
-    name: 'HTML & CSS',
+    name: 'HTML',
     color: 'text-orange-400',
-    description: 'The foundation of our interface. HTML structures content while CSS brings it to life with stunning animations and responsive designs.',
+    description: 'Provides the structural foundation of every page—forms, sections, and semantic elements that make the site accessible and well-organized.',
   },
   {
     icon: Layers,
-    name: 'JavaScript',
-    color: 'text-yellow-400',
-    description: 'Powers all interactive elements—from animated scanning effects to real-time validation and dynamic content updates.',
+    name: 'CSS',
+    color: 'text-cyan-400',
+    description: 'Brings the interface to life with stunning animations, responsive layouts, glow effects, and the cybersecurity-themed dark design.',
   },
   {
     icon: Globe,
-    name: 'React.js',
-    color: 'text-cyan-400',
-    description: 'A component-based library that creates fast, reusable UI elements. Makes our interface smooth and maintainable.',
+    name: 'JavaScript',
+    color: 'text-yellow-400',
+    description: 'Powers all interactive elements—from animated scanning effects and real-time validation to dynamic content updates and popups.',
   },
   {
     icon: Server,
-    name: 'Python Flask',
+    name: 'Python',
     color: 'text-green-400',
-    description: 'Our backend engine. Flask handles file uploads, runs malware analysis algorithms, and returns security verdicts.',
+    description: 'Our backend engine. Python handles file uploads, runs malware analysis algorithms, and returns security verdicts to the user.',
   },
   {
     icon: Database,
-    name: 'MySQL',
+    name: 'SQL',
     color: 'text-blue-400',
-    description: 'Securely stores user data, scan history, and threat signatures. Enables quick lookups and audit trails.',
-  },
-  {
-    icon: Cpu,
-    name: 'ML Algorithms',
-    color: 'text-purple-400',
-    description: 'Machine learning models analyze file patterns and behaviors to detect zero-day threats traditional signatures miss.',
+    description: 'Securely stores user data, scan history, and threat signatures in a relational database. Enables quick lookups and audit trails.',
   },
 ];
 
@@ -55,7 +49,7 @@ const TechnologySection = () => {
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-accent mb-4">
-            <Cpu className="w-4 h-4" />
+            <Code2 className="w-4 h-4" />
             Under the Hood
           </div>
           <h2 className="text-3xl md:text-5xl font-bold mb-4">
@@ -83,7 +77,7 @@ const TechnologySection = () => {
                   <Globe className="w-10 h-10 text-primary" />
                 </div>
                 <p className="text-sm font-semibold">User Browser</p>
-                <p className="text-xs text-muted-foreground">React + CSS</p>
+                <p className="text-xs text-muted-foreground">HTML + CSS + JS</p>
               </div>
 
               {/* Arrow */}
@@ -101,7 +95,7 @@ const TechnologySection = () => {
                 <div className="w-20 h-20 mx-auto rounded-full bg-secondary/10 flex items-center justify-center mb-3">
                   <Server className="w-10 h-10 text-secondary" />
                 </div>
-                <p className="text-sm font-semibold">Flask API</p>
+                <p className="text-sm font-semibold">Python API</p>
                 <p className="text-xs text-muted-foreground">Python Backend</p>
               </div>
 
@@ -120,7 +114,7 @@ const TechnologySection = () => {
                 <div className="w-20 h-20 mx-auto rounded-full bg-accent/10 flex items-center justify-center mb-3">
                   <Database className="w-10 h-10 text-accent" />
                 </div>
-                <p className="text-sm font-semibold">MySQL DB</p>
+                <p className="text-sm font-semibold">SQL Database</p>
                 <p className="text-xs text-muted-foreground">Secure Storage</p>
               </div>
             </div>

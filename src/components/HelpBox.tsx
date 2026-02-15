@@ -28,11 +28,10 @@ const detectionTechniques = [
 
 const technologies = [
   { name: 'HTML', desc: 'Page structure and semantic markup', icon: Code2, color: 'text-orange-400' },
-  { name: 'CSS', desc: 'Design, animations, and responsive layouts', icon: Layers, color: 'text-blue-400' },
+  { name: 'CSS', desc: 'Design, animations, and responsive layouts', icon: Layers, color: 'text-cyan-400' },
   { name: 'JavaScript', desc: 'Popups, scanning effects, and dynamic results', icon: Globe, color: 'text-yellow-400' },
-  { name: 'PHP', desc: 'Website logic and request handling', icon: Server, color: 'text-purple-400' },
-  { name: 'Python', desc: 'Malware detection and file analysis', icon: Cpu, color: 'text-green-400' },
-  { name: 'MySQL', desc: 'User data and scan result storage', icon: Database, color: 'text-cyan-400' },
+  { name: 'Python', desc: 'Malware detection, file analysis, and backend logic', icon: Server, color: 'text-green-400' },
+  { name: 'SQL', desc: 'User data and scan result storage', icon: Database, color: 'text-blue-400' },
 ];
 
 const HelpBox = () => {
