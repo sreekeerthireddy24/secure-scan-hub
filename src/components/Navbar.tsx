@@ -7,7 +7,6 @@ const navLinks = [
   { name: 'Home', href: '#' },
   { name: 'Threats', href: '#malware-types' },
   { name: 'Scan', href: '#scan' },
-  { name: 'Technology', href: '#technology' },
 ];
 
 const Navbar = () => {
