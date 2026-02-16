@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ShieldCheck, ShieldX, AlertTriangle, CheckCircle2, XCircle, PartyPopper, Trash2, Link2Off, Scan } from 'lucide-react';
+import { ShieldCheck, ShieldX, AlertTriangle, CheckCircle2, XCircle, PartyPopper } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import confetti from 'canvas-confetti';
 
@@ -17,11 +17,6 @@ interface ScanResultsProps {
   };
 }
 
-const suggestedActions = [
-  { icon: Trash2, text: 'Delete the file immediately' },
-  { icon: Link2Off, text: 'Avoid opening suspicious links' },
-  { icon: Scan, text: 'Run a full system scan' },
-];
 
 const ScanResults = ({
   isVisible,
@@ -221,31 +216,6 @@ const ScanResults = ({
                 </motion.div>
               )}
 
-              {/* Suggested Actions for Threat */}
-              {!isSafe && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.7 }}
-                  className="mb-6"
-                >
-                  <h3 className="text-sm font-semibold text-foreground mb-3">Suggested Actions:</h3>
-                  <div className="space-y-2">
-                    {suggestedActions.map((action, i) => (
-                      <motion.div
-                        key={action.text}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.8 + i * 0.1 }}
-                        className="flex items-center gap-3 p-3 rounded-lg bg-muted/30 text-left"
-                      >
-                        <action.icon className="w-5 h-5 text-warning flex-shrink-0" />
-                        <span className="text-sm text-muted-foreground">{action.text}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
 
               {/* Safe checkmarks */}
               {isSafe && (
