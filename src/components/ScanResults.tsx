@@ -287,7 +287,17 @@ const ScanResults = ({
                 )}
                 <Button
                   variant={isSafe ? 'default' : 'outline'}
-                  onClick={onClose}
+                  onClick={() => {
+                    onClose();
+                    if (!isSafe) {
+                      setTimeout(() => {
+                        const tipsSection = document.getElementById('security-tips');
+                        if (tipsSection) {
+                          tipsSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }, 300);
+                    }
+                  }}
                   className={`w-full h-12 ${
                     isSafe
                       ? 'bg-gradient-success text-success-foreground font-semibold'
@@ -300,7 +310,7 @@ const ScanResults = ({
                       Continue Browsing
                     </>
                   ) : (
-                    'Close'
+                    'Continue Browsing'
                   )}
                 </Button>
               </motion.div>
