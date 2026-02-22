@@ -106,7 +106,7 @@ const HeroSection = ({ onStartScan }: HeroSectionProps) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
-              className="mt-12 grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0"
+              className="mt-8 sm:mt-12 grid grid-cols-3 gap-4 sm:gap-6 max-w-md mx-auto lg:mx-0"
             >
               {[
                 { value: '99.9%', label: 'Detection Rate' },
@@ -114,7 +114,7 @@ const HeroSection = ({ onStartScan }: HeroSectionProps) => {
                 { value: '<1s', label: 'Scan Speed' },
               ].map((stat, i) => (
                 <div key={i} className="text-center lg:text-left">
-                  <div className="text-2xl md:text-3xl font-bold text-primary text-neon">
+                  <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary text-neon">
                     {stat.value}
                   </div>
                   <div className="text-xs text-muted-foreground">{stat.label}</div>
