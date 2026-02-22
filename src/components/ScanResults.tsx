@@ -109,7 +109,7 @@ const ScanResults = ({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: 'spring', duration: 0.5 }}
-            className={`relative w-full max-w-lg mx-4 p-8 rounded-2xl glass border-2 ${
+            className={`relative w-full max-w-lg mx-4 p-4 sm:p-6 md:p-8 rounded-2xl glass border-2 ${
               isSafe ? 'border-success/50' : 'border-destructive/50'
             }`}
           >
@@ -126,7 +126,7 @@ const ScanResults = ({
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ type: 'spring', delay: 0.2 }}
-                className={`w-28 h-28 mx-auto mb-6 rounded-full flex items-center justify-center ${
+                className={`w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 mx-auto mb-4 sm:mb-6 rounded-full flex items-center justify-center ${
                   isSafe ? 'bg-success/20' : 'bg-destructive/20'
                 } ${isSafe ? 'success-glow' : 'danger-pulse'}`}
               >
@@ -135,14 +135,14 @@ const ScanResults = ({
                     animate={{ rotate: [0, 10, -10, 0] }}
                     transition={{ duration: 0.5, delay: 0.5 }}
                   >
-                    <ShieldCheck className="w-14 h-14 text-success" />
+                    <ShieldCheck className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-success" />
                   </motion.div>
                 ) : (
                   <motion.div
                     animate={{ scale: [1, 1.1, 1] }}
                     transition={{ duration: 0.5, repeat: Infinity }}
                   >
-                    <ShieldX className="w-14 h-14 text-destructive" />
+                    <ShieldX className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-destructive" />
                   </motion.div>
                 )}
               </motion.div>
@@ -152,7 +152,7 @@ const ScanResults = ({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className={`text-3xl md:text-4xl font-bold mb-3 ${
+                className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-3 ${
                   isSafe ? 'text-success text-neon-green' : 'text-destructive'
                 }`}
               >
@@ -164,7 +164,7 @@ const ScanResults = ({
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="text-muted-foreground mb-6 text-lg"
+                className="text-muted-foreground mb-4 sm:mb-6 text-sm sm:text-base md:text-lg"
               >
                 {isSafe
                   ? 'No malware or security threats were found. You can continue safely.'

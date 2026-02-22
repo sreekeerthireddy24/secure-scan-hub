@@ -83,7 +83,7 @@ const EntryModal = ({ onComplete }: EntryModalProps) => {
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="relative w-full max-w-md mx-4"
         >
-          <div className="glass rounded-2xl p-8 gradient-border">
+          <div className="glass rounded-2xl p-5 sm:p-8 gradient-border">
             {/* Header */}
             <motion.div
               initial={{ y: -20, opacity: 0 }}

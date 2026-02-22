@@ -35,7 +35,7 @@ const ScanningOverlay = ({ isVisible, scanType, targetName, progress }: Scanning
         >
           <div className="text-center max-w-md mx-4">
             {/* Animated scanner */}
-            <div className="relative w-48 h-48 mx-auto mb-8">
+            <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 mx-auto mb-6 sm:mb-8">
               {/* Outer rotating ring */}
               <motion.div
                 className="absolute inset-0 rounded-full border-4 border-primary/20"
@@ -100,7 +100,7 @@ const ScanningOverlay = ({ isVisible, scanType, targetName, progress }: Scanning
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
-              <h3 className="text-2xl font-bold text-foreground mb-2">
+              <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-2">
                 Scanning {scanType === 'file' ? 'File' : 'URL'}
               </h3>
               <p className="text-sm text-muted-foreground mb-6 truncate max-w-xs mx-auto">

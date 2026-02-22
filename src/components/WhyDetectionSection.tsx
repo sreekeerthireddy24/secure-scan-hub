@@ -75,18 +75,18 @@ const WhyDetectionSection = () => {
               className="group"
             >
               <div className="h-full p-8 rounded-2xl glass border border-border/50 card-cyber">
-                <div className="flex items-start gap-6">
+                <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6">
                   <motion.div
                     whileHover={{ scale: 1.1 }}
-                    className="w-16 h-16 rounded-xl bg-secondary/10 flex items-center justify-center flex-shrink-0"
+                    className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-secondary/10 flex items-center justify-center flex-shrink-0"
                   >
-                    <reason.icon className="w-8 h-8 text-secondary" />
+                    <reason.icon className="w-7 h-7 sm:w-8 sm:h-8 text-secondary" />
                   </motion.div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-foreground mb-2">{reason.title}</h3>
-                    <p className="text-muted-foreground mb-4">{reason.description}</p>
+                    <div className="flex-1 text-center sm:text-left">
+                    <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2">{reason.title}</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground mb-4">{reason.description}</p>
                     <div className="flex items-baseline gap-2">
-                      <span className="text-3xl font-bold text-primary text-neon">{reason.stat}</span>
+                      <span className="text-2xl sm:text-3xl font-bold text-primary text-neon">{reason.stat}</span>
                       <span className="text-sm text-muted-foreground">{reason.statLabel}</span>
                     </div>
                   </div>

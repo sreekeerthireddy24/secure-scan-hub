@@ -46,12 +46,12 @@ const AnimatedShield = ({ status = 'idle' }: AnimatedShieldProps) => {
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        style={{ width: '200px', height: '200px', margin: '-20px' }}
+        style={{ width: '100%', height: '100%' }}
       />
 
       {/* Middle ring */}
       <motion.div
-        className="absolute inset-0 rounded-full border border-primary/20"
+        className="absolute rounded-full border border-primary/20"
         animate={{
           scale: [1, 1.4, 1],
           opacity: [0.2, 0.05, 0.2],
@@ -62,12 +62,12 @@ const AnimatedShield = ({ status = 'idle' }: AnimatedShieldProps) => {
           ease: 'easeInOut',
           delay: 0.5,
         }}
-        style={{ width: '240px', height: '240px', margin: '-40px' }}
+        style={{ width: '120%', height: '120%', top: '-10%', left: '-10%' }}
       />
 
       {/* Shield container */}
       <motion.div
-        className={`relative w-40 h-40 flex items-center justify-center rounded-full glass ${getGlowClass()}`}
+        className={`relative w-28 h-28 sm:w-36 sm:h-36 md:w-40 md:h-40 flex items-center justify-center rounded-full glass ${getGlowClass()}`}
         animate={status === 'scanning' ? { rotate: 360 } : {}}
         transition={{
           duration: 4,
@@ -94,9 +94,9 @@ const AnimatedShield = ({ status = 'idle' }: AnimatedShieldProps) => {
           }}
         >
           {status === 'safe' ? (
-            <ShieldCheck className={`w-20 h-20 ${getShieldColor()} shield-glow`} />
+            <ShieldCheck className={`w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 ${getShieldColor()} shield-glow`} />
           ) : (
-            <Shield className={`w-20 h-20 ${getShieldColor()} shield-glow`} />
+            <Shield className={`w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 ${getShieldColor()} shield-glow`} />
           )}
         </motion.div>
 
